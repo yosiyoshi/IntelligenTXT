@@ -17,6 +17,9 @@ Vietnamese
 /pyvi
 
 
+/underthesea
+
+
 Thai
 
 
@@ -24,3 +27,9 @@ Thai
 
 
 /pythainlp
+
+
+Japanese
+
+
+/pymecab
