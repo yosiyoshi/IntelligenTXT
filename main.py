@@ -83,12 +83,12 @@ class Frame(tk.Frame):
         root.mainloop()
 
     def save():
-        fn = tkfd.askopenfilename()
+        fn = tkfd.asksaveasfilename()
         m = Frame.m
-        f = open(fn, 'w')
-        f.write(m)
+        f = open(fn, 'a')
+        f.write(m.get())
         f.close()
- 
+        
     def segzh():
         m = Frame.m
         txt = m.get()
