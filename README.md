@@ -1,5 +1,20 @@
 # IntelligenTXT
-Simplest but an intelligent text editor.
+Simplest but an intelligent text editor with NLP functions.
+
+
+# How to Use
+
+
+1.Install all requirement
+
+
+2.Just prompt "python main.py"
+
+
+# Languages
+
+
+v0.04: Chinese, Thai, Vietnamese, and Burmese(Myanmar). 4 languages in total.
 
 
 # Requirement
@@ -29,7 +44,7 @@ Thai
 /pythainlp
 
 
-Japanese
+Burmese
 
 
-/pymecab
+/python-myanmar
