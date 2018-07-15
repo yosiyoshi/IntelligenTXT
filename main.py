@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Fri May 18 17:39:44 2018
@@ -18,16 +19,18 @@ import jieba
 import jieba.posseg
 import jieba.analyse
 
-import deepseg
-
 from pymecab.pymecab import PyMecab
 
+import deepseg
+
 from pyvi import ViTokenizer, ViPosTagger
-import underthesea as uts
 
 import tltk.nlp as tl
 
 import tkinter as tk
+
+from myanmar import converter
+from myanmar.romanizer import romanize, IPA
 
 class Frame(tk.Frame):
     root = tk.Tk()
@@ -45,11 +48,10 @@ class Frame(tk.Frame):
         menuf0 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"File", menu=menuf0,  underline=5)
         menuf0.add_command(label=u"Save", command=Frame.save, underline=5, accelerator = 'Ctrl-S')
-        menuf0.add_command(label=u"Quit", command=Frame.fdestroy, underline=5, accelerator='Ctrl-Q')
 
         menub1.add_cascade(label=u"NLP(ZH)", menu=menuf1,  underline=5)
         menuf1.add_command(label=u"Tokenize", command=Frame.segzh, underline=5, accelerator = 'Ctrl-T')
-        menuf1.add_command(label=u"Deepseg", command=Frame.dsegzh, underline=5, accelerator = 'Ctrl-D')
+#        menuf1.add_command(label=u"Deepseg", command=Frame.dsegzh, underline=5, accelerator = 'Ctrl-D')
         menuf1.add_command(label=u"Keywords", command=Frame.kwzh, underline=5, accelerator = 'Ctrl-K')
         menuf1.add_command(label=u"POS", command=Frame.poszh, underline=5, accelerator = 'Ctrl-P')
     
@@ -57,7 +59,7 @@ class Frame(tk.Frame):
         menub1.add_cascade(label=u"NLP(TH)", menu=menuf2,  underline=5)
         menuf2.add_command(label=u"Tokenize", command=Frame.segth, underline=5, accelerator = 'Ctrl-T')
         menuf2.add_command(label=u"DeepCut", command=Frame.dsegth, underline=5, accelerator = 'Ctrl-D')
-        menuf2.add_command(label=u"Cutkum", command=Frame.ckth, underline=5, accelerator = 'Ctrl-C')
+#        menuf2.add_command(label=u"Cutkum", command=Frame.ckth, underline=5, accelerator = 'Ctrl-C')
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
         menuf2.add_command(label=u"POS", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
@@ -69,32 +71,24 @@ class Frame(tk.Frame):
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
         menuf3.add_command(label=u"Tokenize", command=Frame.segvt, underline=5, accelerator = 'Ctrl-T')
         menuf3.add_command(label=u"POS", command=Frame.posvt, underline=5, accelerator = 'Ctrl-P')
-        menuf3.add_command(label=u"cHunk", command=Frame.chunkvn, underline=5, accelerator = 'Ctrl-H')
-        menuf3.add_command(label=u"NER", command=Frame.nervn, underline=5, accelerator = 'Ctrl-N')
-        menuf3.add_command(label=u"Classify", command=Frame.txtclsvn, underline=5, accelerator = 'Ctrl-C')
-        menuf3.add_command(label=u"sentiMent", command=Frame.sentivn, underline=5, accelerator = 'Ctrl-M')
 
         menuf4 = tk.Menu(menub1, tearoff=0)
-        menub1.add_cascade(label=u"NLP(JP)", menu=menuf4, underline=5)
-        menuf4.add_command(label=u"Tokenize", command=Frame.mcjp, underline=5, accelerator='Ctrl-T')
-
-        menuf5 = tk.Menu(menub1, tearoff=0)
-        menub1.add_cascade(label=u"Edit", menu=menuf5,  underline=5)
-        menuf5.add_command(label=u"Copy all", command=Frame.copy, underline=5, accelerator = 'Ctrl-C')
+        menub1.add_cascade(label=u"NLP(MN)", menu=menuf4,  underline=5)
+        menuf4.add_command(label=u"Romanize", command=Frame.rommn, underline=5, accelerator = 'Ctrl-R')
+        menuf4.add_command(label=u"enco2Unicord", command=Frame.zaw2uni, underline=5, accelerator = 'Ctrl-U')
+        menuf4.add_command(label=u"enco2Zawgyi", command=Frame.uni2zaw, underline=5, accelerator = 'Ctrl-Z')
 
         entry = tk.Entry(root,font=("",14),justify="left", textvariable=m) #entry textbox
         entry.pack(fill="x")
         root.mainloop()
 
     def save():
-        fn = tkfd.asksaveasfilename(filetypes=[('text files', '*.txt')])
-        if fn:
-            m = Frame.m
-            txt = m.get()
-            f = open(fn, 'w')
-            f.write(txt)
-            f.close()
-            
+        fn = tkfd.askopenfilename()
+        m = Frame.m
+        f = open(fn, 'w')
+        f.write(m)
+        f.close()
+ 
     def segzh():
         m = Frame.m
         txt = m.get()
@@ -206,38 +200,37 @@ class Frame(tk.Frame):
         label12.pack(fill="x")
         root12.mainloop()
         
-    def ckth():
-        m = Frame.m
-        txt = m.get()
-        seg = cutkum.tokenize(txt)
-        print(seg)
-        root13 = tk.Tk()
-        root13.title('Result(CutkumTH)')
-        label13 = tk.Label(root13,text=seg,font=16)
-        label13.pack(fill="x")
-        root13.mainloop()
+#    def ckth():
+#        m = Frame.m
+#        txt = m.get()
+#        seg = cutkum.tokenize(txt)
+#        print(seg)
+#        root13 = tk.Tk()
+#        root13.title('Result(CutkumTH)')
+#        label13 = tk.Label(root13,text=seg,font=16)
+#        label13.pack(fill="x")
+#        root13.mainloop()
 
-    def dsegzh():
-        m = Frame.m
-        txt = m.get()
-        seg = deepseg.cut(txt)
-        print(" ".join(seg))
-        root14 = tk.Tk()
-        root14.title('Result(DeepSegZH)')
-        label14 = tk.Label(root14,text=seg,font=16)
-        label14.pack(fill="x")
-        root14.mainloop()
+#    def dsegzh():
+#        m = Frame.m
+#        txt = m.get()
+#        seg = deepseg.cut(txt)
+#        print(" ".join(seg))
+#        root14 = tk.Tk()
+#        root14.title('Result(DeepSegZH)')
+#        label14 = tk.Label(root14,text=seg,font=16)
+#        label14.pack(fill="x")
+#        root14.mainloop()
         
-    def mcjp():
+    def rommn():
         m = Frame.m
         txt = m.get()
-        mecab = PyMecab()
         root15 = tk.Tk()
-        root15.title('Result(MecabJP)')
-        for token in mecab.tokenize(txt):
-            print(token.surface, token.pos1)
-            label15 = tk.Label(root15,text=token.surface+" "+token.pos1,font=16)
-            label15.pack(fill="x")    
+        root15.title('Result(RomanizeMN)')
+        rm = romanize(txt, IPA)
+        print(rm)
+        label15 = tk.Label(root15,text=rm,font=16)
+        label15.pack(fill="x")    
         root15.mainloop()
 
     def kwth():
@@ -275,60 +268,28 @@ class Frame(tk.Frame):
         label18.pack(fill="x")
         root18.mainloop()
         
-    def fdestroy():
-        f=Frame()
-        f.root.destroy()
-        
-    def copy():
-        f=Frame()
-        txt = f.m.get()
-        f.clipboard_clear()
-        f.clipboard_append(txt)
-        
-    def txtclsvn():
+    def zaw2uni():
         m = Frame.m
         txt = m.get()
-        seg = uts.classify(txt)
-        print(seg)
         root19 = tk.Tk()
-        root19.title('Result(ClassifyVT)')
-        label19 = tk.Label(root19,text=seg,font=16)
-        label19.pack(fill="x")
+        root19.title('Result(2UnicordMN)')
+        conv = converter.convert(txt, 'unicode', 'zawgyi')
+        print(conv)
+        label19 = tk.Label(root19,text=conv,font=16)
+        label19.pack(fill="x")    
         root19.mainloop()
         
-    def sentivn():
+    def uni2zaw():
         m = Frame.m
         txt = m.get()
-        seg = uts.sentiment(txt, domain='bank')
-        print(seg)
         root20 = tk.Tk()
-        root20.title('Result(SentimentVT)')
-        label20 = tk.Label(root20,text=seg,font=16)
-        label20.pack(fill="x")
+        root20.title('Result(2ZawgyiMN)')
+        conv = converter.convert(txt, 'unicode', 'zawgyi')
+        print(conv)
+        label20 = tk.Label(root20,text=conv,font=16)
+        label20.pack(fill="x")    
         root20.mainloop()
-
-    def chunkvn():
-        m = Frame.m
-        txt = m.get()
-        seg = uts.chunk(txt)
-        print(seg)
-        root21 = tk.Tk()
-        root21.title('Result(ChunkVT)')
-        label21 = tk.Label(root21,text=seg,font=16)
-        label21.pack(fill="x")
-        root21.mainloop()
         
-    def nervn():
-        m = Frame.m
-        txt = m.get()
-        seg = uts.ner(txt)
-        print(seg)
-        root22 = tk.Tk()
-        root22.title('Result(NER-VT)')
-        label22 = tk.Label(root22,text=seg,font=16)
-        label22.pack(fill="x")
-        root22.mainloop()
-
 if __name__ == '__main__':
     f = Frame()
     Frame.main()
