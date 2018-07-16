@@ -13,15 +13,9 @@ sys.path.append("../")
 
 import pythainlp as ptn
 
-import cutkum
-
 import jieba
 import jieba.posseg
 import jieba.analyse
-
-from pymecab.pymecab import PyMecab
-
-import deepseg
 
 from pyvi import ViTokenizer, ViPosTagger
 
@@ -31,6 +25,10 @@ import tkinter as tk
 
 from myanmar import converter
 from myanmar.romanizer import romanize, IPA
+
+from janome.tokenizer import Tokenizer
+
+import collections
 
 class Frame(tk.Frame):
     root = tk.Tk()
@@ -67,6 +65,12 @@ class Frame(tk.Frame):
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
         menuf2.add_command(label=u"speLL", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
         
+        menuf5 = tk.Menu(menub1, tearoff=0)
+        menub1.add_cascade(label=u"NLP(JP)", menu=menuf5, underline=5)
+        menuf5.add_command(label=u"Tokenize", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-T')
+        menuf5.add_command(label=u"Segmentation", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
+        menuf5.add_command(label=u"Counter", command=Frame.cntjp, underline=5, accelerator = 'Ctrl-C')
+    
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
         menuf3.add_command(label=u"Tokenize", command=Frame.segvt, underline=5, accelerator = 'Ctrl-T')
@@ -88,7 +92,7 @@ class Frame(tk.Frame):
         f = open(fn, 'a')
         f.write(m.get())
         f.close()
-        
+
     def segzh():
         m = Frame.m
         txt = m.get()
@@ -290,6 +294,43 @@ class Frame(tk.Frame):
         label20.pack(fill="x")    
         root20.mainloop()
         
+    def tokenjp():
+        m = Frame.m
+        txt = m.get()
+        root21 = tk.Tk()
+        root21.title('Result(TokenizeJP)')
+        t = Tokenizer()
+        for token in t.tokenize(txt):
+            print(token)
+            label21 = tk.Label(root21,text=token,font=16)
+            label21.pack(fill="x")
+        root21.mainloop()
+        
+    def segjp():
+        m = Frame.m
+        txt = m.get()
+        root22 = tk.Tk()
+        root22.title('Result(SegmentJP)')
+        t = Tokenizer()
+        token = t.tokenize(txt, wakati=True)
+        print(token)
+        label22 = tk.Label(root22,text=token,font=16)
+        label22.pack(fill="x")
+        root22.mainloop()
+        
+    def cntjp():
+        m = Frame.m
+        txt = m.get()
+        root23 = tk.Tk()
+        root23.title('Result(CounterJP)')
+        t = Tokenizer()
+        for token in t.tokenize(txt):
+            print(token)
+        c = collections.Counter(t.tokenize(txt, wakati=True))
+        label23 = tk.Label(root23,text=c,font=16)
+        label23.pack(fill="x")
+        root23.mainloop()
+
 if __name__ == '__main__':
     f = Frame()
     Frame.main()
