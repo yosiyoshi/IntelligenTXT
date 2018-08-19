@@ -15,15 +15,23 @@ Simplest but an intelligent text editor with NLP functions.
 
 
 v0.04: Chinese, Thai, Vietnamese, and Burmese(Myanmar). 4 languages in total.
+v0.05: Added Japanese, and Gensim word2vec module. 5 languages in total.
 
 
 # Requirement
+/gensim
 
 
 Chinese
 
 
 /jieba
+
+
+Japanese
+
+
+/janome
 
 
 Vietnamese
@@ -48,3 +56,15 @@ Burmese
 
 
 /python-myanmar
+
+
+etc.
+
+
+/logging
+
+
+/pyperclip
+
+
+/tkinter
