@@ -30,6 +30,8 @@ from janome.tokenizer import Tokenizer
 
 import collections
 
+from gensim.models import word2vec
+
 class Frame(tk.Frame):
     root = tk.Tk()
     m = tk.StringVar()
@@ -47,6 +49,10 @@ class Frame(tk.Frame):
         menub1.add_cascade(label=u"File", menu=menuf0,  underline=5)
         menuf0.add_command(label=u"Save", command=Frame.save, underline=5, accelerator = 'Ctrl-S')
 
+        menuf4 = tk.Menu(menub1, tearoff=0)
+        menub1.add_cascade(label=u"Gensim", menu=menuf4,  underline=5)
+        menuf4.add_command(label=u"Word2vec", command=Frame.w2v, underline=5, accelerator = 'Ctrl-W') 
+        
         menub1.add_cascade(label=u"NLP(ZH)", menu=menuf1,  underline=5)
         menuf1.add_command(label=u"Tokenize", command=Frame.segzh, underline=5, accelerator = 'Ctrl-T')
 #        menuf1.add_command(label=u"Deepseg", command=Frame.dsegzh, underline=5, accelerator = 'Ctrl-D')
@@ -330,6 +336,21 @@ class Frame(tk.Frame):
         label23 = tk.Label(root23,text=c,font=16)
         label23.pack(fill="x")
         root23.mainloop()
+        
+    def w2v():
+        m = Frame.m
+        txt = m.get()
+        model = word2vec.Word2Vec(txt,
+                          sg=1,
+                          size=100,
+                          min_count=1,
+                          window=10,
+                          hs=1,
+                          negative=0)
+        fn = tkfd.asksaveasfilename()
+        f = open(fn, 'a')
+        model.save(fn)
+        f.close()
 
 if __name__ == '__main__':
     f = Frame()
