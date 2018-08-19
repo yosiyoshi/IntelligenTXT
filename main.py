@@ -11,11 +11,15 @@ import tkinter.filedialog as tkfd
 import sys
 sys.path.append("../")
 
+import pyperclip
+
 import pythainlp as ptn
 
 import jieba
 import jieba.posseg
 import jieba.analyse
+
+import logging
 
 from pyvi import ViTokenizer, ViPosTagger
 
@@ -104,6 +108,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = "/ ".join(jieba.cut(txt, cut_all=False))
         print(seg)
+        pyperclip.copy(seg)
         root2 = tk.Tk()
         root2.title('Result(SegmentZH)')
         label2 = tk.Label(root2,text=seg,font=16)
@@ -138,6 +143,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = tl.segment(txt)
         print(seg)
+        pyperclip.copy(seg)
         root3 = tk.Tk()
         root3.title('Result(SegmentTH)')
         label3 = tk.Label(root3,text=seg,font=16)
@@ -149,6 +155,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.romanization(txt,engine='royin')
         print(seg)
+        pyperclip.copy(seg)
         root5 = tk.Tk()
         root5.title('Result(RomanTH)')
         label5 = tk.Label(root5,text=seg,font=16)
@@ -160,6 +167,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = tl.pos_tag(txt)
         print(seg)
+        pyperclip.copy(seg)
         root8 = tk.Tk()
         root8.title('Result(POS-TH)')
         label8 = tk.Label(root8,text=seg,font=16)
@@ -171,6 +179,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ViTokenizer.tokenize(txt)
         print(seg)
+        pyperclip.copy(seg)
         root9 = tk.Tk()
         root9.title('Result(KeywordsVT)')
         label9 = tk.Label(root9,text=seg,font=16)
@@ -182,6 +191,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ViPosTagger.postagging(ViTokenizer.tokenize(txt))
         print(seg)
+        pyperclip.copy(seg)
         root10 = tk.Tk()
         label0 = tk.Label(root10,text=seg,font=16)
         label0.pack(fill="x")
@@ -193,6 +203,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.summarize.summarize_text(txt,n=1,engine='frequency')
         print(seg)
+        pyperclip.copy(seg)
         root11 = tk.Tk()
         label1 = tk.Label(root11,text=seg,font=16)
         label1.pack(fill="x")
@@ -204,6 +215,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.word_tokenize(txt,engine='deepcut')
         print(seg)
+        pyperclip.copy(seg)
         root12 = tk.Tk()
         root12.title('Result(DeepCutTH)')
         label12 = tk.Label(root12,text=seg,font=16)
@@ -239,6 +251,7 @@ class Frame(tk.Frame):
         root15.title('Result(RomanizeMN)')
         rm = romanize(txt, IPA)
         print(rm)
+        pyperclip.copy(rm)
         label15 = tk.Label(root15,text=rm,font=16)
         label15.pack(fill="x")    
         root15.mainloop()
@@ -248,6 +261,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.word_tokenize(txt,engine='deepcut')
         print(seg)
+        pyperclip.copy(seg)
         kw = ptn.find_keyword(seg, lentext=3)
         print(kw)
         root16 = tk.Tk()
@@ -261,6 +275,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.sentiment(txt)
         print(seg)
+        pyperclip.copy(seg)
         root17 = tk.Tk()
         root17.title('Result(SentimentTH)')
         label17 = tk.Label(root17,text=seg)
@@ -272,6 +287,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.spell(txt,engine='pn')
         print(seg)
+        pyperclip.copy(seg)
         root18 = tk.Tk()
         root18.title('Result(SentimentTH)')
         label18 = tk.Label(root18,text=seg)
@@ -285,6 +301,7 @@ class Frame(tk.Frame):
         root19.title('Result(2UnicordMN)')
         conv = converter.convert(txt, 'unicode', 'zawgyi')
         print(conv)
+        pyperclip.copy(conv)
         label19 = tk.Label(root19,text=conv,font=16)
         label19.pack(fill="x")    
         root19.mainloop()
@@ -296,6 +313,7 @@ class Frame(tk.Frame):
         root20.title('Result(2ZawgyiMN)')
         conv = converter.convert(txt, 'unicode', 'zawgyi')
         print(conv)
+        pyperclip.copy(conv)
         label20 = tk.Label(root20,text=conv,font=16)
         label20.pack(fill="x")    
         root20.mainloop()
@@ -320,6 +338,7 @@ class Frame(tk.Frame):
         t = Tokenizer()
         token = t.tokenize(txt, wakati=True)
         print(token)
+        pyperclip.copy(','.join(token))
         label22 = tk.Label(root22,text=token,font=16)
         label22.pack(fill="x")
         root22.mainloop()
@@ -340,6 +359,7 @@ class Frame(tk.Frame):
     def w2v():
         m = Frame.m
         txt = m.get()
+        logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
         model = word2vec.Word2Vec(txt,
                           sg=1,
                           size=100,
