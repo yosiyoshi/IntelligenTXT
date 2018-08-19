@@ -20,6 +20,7 @@ import jieba.posseg
 import jieba.analyse
 
 import logging
+import re
 
 from pyvi import ViTokenizer, ViPosTagger
 
@@ -108,7 +109,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = "/ ".join(jieba.cut(txt, cut_all=False))
         print(seg)
-        pyperclip.copy(seg)
+        pyperclip.copy(" ".join(jieba.cut(txt, cut_all=False)))
         root2 = tk.Tk()
         root2.title('Result(SegmentZH)')
         label2 = tk.Label(root2,text=seg,font=16)
@@ -141,8 +142,9 @@ class Frame(tk.Frame):
     def segth():
         m = Frame.m
         txt = m.get()
-        seg = tl.segment(txt)
-        print(seg)
+        seg1 = tl.segment(txt)
+        seg = seg1.replace('<s/>', "").replace('<u/>', "").replace('|', " ")
+        print(seg1)
         pyperclip.copy(seg)
         root3 = tk.Tk()
         root3.title('Result(SegmentTH)')
@@ -338,7 +340,7 @@ class Frame(tk.Frame):
         t = Tokenizer()
         token = t.tokenize(txt, wakati=True)
         print(token)
-        pyperclip.copy(','.join(token))
+        pyperclip.copy(' '.join(token))
         label22 = tk.Label(root22,text=token,font=16)
         label22.pack(fill="x")
         root22.mainloop()
