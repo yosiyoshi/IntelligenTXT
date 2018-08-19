@@ -20,7 +20,6 @@ import jieba.posseg
 import jieba.analyse
 
 import logging
-import re
 
 from pyvi import ViTokenizer, ViPosTagger
 
@@ -169,7 +168,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = tl.pos_tag(txt)
         print(seg)
-        pyperclip.copy(seg)
+#        pyperclip.copy(" ".join(seg))
         root8 = tk.Tk()
         root8.title('Result(POS-TH)')
         label8 = tk.Label(root8,text=seg,font=16)
@@ -193,7 +192,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ViPosTagger.postagging(ViTokenizer.tokenize(txt))
         print(seg)
-        pyperclip.copy(seg)
+#        pyperclip.copy(" ".join(seg))
         root10 = tk.Tk()
         label0 = tk.Label(root10,text=seg,font=16)
         label0.pack(fill="x")
@@ -205,7 +204,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.summarize.summarize_text(txt,n=1,engine='frequency')
         print(seg)
-        pyperclip.copy(seg)
+        pyperclip.copy(" ".join(seg))
         root11 = tk.Tk()
         label1 = tk.Label(root11,text=seg,font=16)
         label1.pack(fill="x")
@@ -217,7 +216,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.word_tokenize(txt,engine='deepcut')
         print(seg)
-        pyperclip.copy(seg)
+        pyperclip.copy(" ".join(seg))
         root12 = tk.Tk()
         root12.title('Result(DeepCutTH)')
         label12 = tk.Label(root12,text=seg,font=16)
@@ -263,9 +262,9 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = ptn.word_tokenize(txt,engine='deepcut')
         print(seg)
-        pyperclip.copy(seg)
         kw = ptn.find_keyword(seg, lentext=3)
         print(kw)
+        pyperclip.copy(" ".join(kw))
         root16 = tk.Tk()
         root16.title('Result(KeywordTH)')
         label16 = tk.Label(root16,text=kw)
@@ -291,7 +290,7 @@ class Frame(tk.Frame):
         print(seg)
         pyperclip.copy(seg)
         root18 = tk.Tk()
-        root18.title('Result(SentimentTH)')
+        root18.title('Result(SpellTH)')
         label18 = tk.Label(root18,text=seg)
         label18.pack(fill="x")
         root18.mainloop()
