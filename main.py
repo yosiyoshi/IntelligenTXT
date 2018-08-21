@@ -60,10 +60,10 @@ class Frame(tk.Frame):
         
         menub1.add_cascade(label=u"NLP(ZH)", menu=menuf1,  underline=5)
         menuf1.add_command(label=u"Segment", command=Frame.segzh, underline=5, accelerator = 'Ctrl-S')
-#        menuf1.add_command(label=u"Deepseg", command=Frame.dsegzh, underline=5, accelerator = 'Ctrl-D')
         menuf1.add_command(label=u"Keywords", command=Frame.kwzh, underline=5, accelerator = 'Ctrl-K')
         menuf1.add_command(label=u"textRank", command=Frame.trzh, underline=5, accelerator = 'Ctrl-R')
         menuf1.add_command(label=u"POS", command=Frame.poszh, underline=5, accelerator = 'Ctrl-P')
+        menuf1.add_command(label=u"preprocess4textrank", command=Frame.process4txtrkzh, underline=5)
     
         menuf2 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(TH)", menu=menuf2,  underline=5)
@@ -73,7 +73,7 @@ class Frame(tk.Frame):
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
         menuf2.add_command(label=u"POS", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
-        menuf2.add_command(label=u"suMMary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-M')
+        menuf2.add_command(label=u"sUmmary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-U')
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
         menuf2.add_command(label=u"speLL", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
         
@@ -250,16 +250,16 @@ class Frame(tk.Frame):
 #        label13.pack(fill="x")
 #        root13.mainloop()
 
-#    def dsegzh():
-#        m = Frame.m
-#        txt = m.get()
-#        seg = deepseg.cut(txt)
-#        print(" ".join(seg))
-#        root14 = tk.Tk()
-#        root14.title('Result(DeepSegZH)')
-#        label14 = tk.Label(root14,text=seg,font=16)
-#        label14.pack(fill="x")
-#        root14.mainloop()
+    def process4txtrkzh():
+        m = Frame.m
+        txt = m.get()
+        root14 = tk.Tk()
+        root14.title('Result(preprocess4textrankZH)')
+        result = re.sub(u'[有是会能]', '', txt)
+        print(result)
+        pyperclip.copy(result)
+        label14 = tk.Label(root14,text=result,font=16)
+        label14.pack(fill="x")
         
     def rommn():
         m = Frame.m
