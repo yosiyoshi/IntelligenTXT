@@ -59,32 +59,33 @@ class Frame(tk.Frame):
         menuf4.add_command(label=u"Word2vec", command=Frame.w2v, underline=5, accelerator = 'Ctrl-W') 
         
         menub1.add_cascade(label=u"NLP(ZH)", menu=menuf1,  underline=5)
-        menuf1.add_command(label=u"Tokenize", command=Frame.segzh, underline=5, accelerator = 'Ctrl-T')
+        menuf1.add_command(label=u"Segment", command=Frame.segzh, underline=5, accelerator = 'Ctrl-S')
 #        menuf1.add_command(label=u"Deepseg", command=Frame.dsegzh, underline=5, accelerator = 'Ctrl-D')
         menuf1.add_command(label=u"Keywords", command=Frame.kwzh, underline=5, accelerator = 'Ctrl-K')
+        menuf1.add_command(label=u"textRank", command=Frame.trzh, underline=5, accelerator = 'Ctrl-R')
         menuf1.add_command(label=u"POS", command=Frame.poszh, underline=5, accelerator = 'Ctrl-P')
     
         menuf2 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(TH)", menu=menuf2,  underline=5)
-        menuf2.add_command(label=u"Tokenize", command=Frame.segth, underline=5, accelerator = 'Ctrl-T')
+        menuf2.add_command(label=u"Segment", command=Frame.segth, underline=5, accelerator = 'Ctrl-S')
         menuf2.add_command(label=u"DeepCut", command=Frame.dsegth, underline=5, accelerator = 'Ctrl-D')
 #        menuf2.add_command(label=u"Cutkum", command=Frame.ckth, underline=5, accelerator = 'Ctrl-C')
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
         menuf2.add_command(label=u"POS", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
-        menuf2.add_command(label=u"Summary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-S')
+        menuf2.add_command(label=u"suMMary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-M')
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
         menuf2.add_command(label=u"speLL", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
         
         menuf5 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(JP)", menu=menuf5, underline=5)
-        menuf5.add_command(label=u"Tokenize", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-T')
-        menuf5.add_command(label=u"Segmentation", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
+        menuf5.add_command(label=u"Segment", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
         menuf5.add_command(label=u"Counter", command=Frame.cntjp, underline=5, accelerator = 'Ctrl-C')
+        menuf5.add_command(label=u"POS", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-P')
     
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
-        menuf3.add_command(label=u"Tokenize", command=Frame.segvt, underline=5, accelerator = 'Ctrl-T')
+        menuf3.add_command(label=u"Segment", command=Frame.segvt, underline=5, accelerator = 'Ctrl-S')
         menuf3.add_command(label=u"POS", command=Frame.posvt, underline=5, accelerator = 'Ctrl-P')
 
         menuf4 = tk.Menu(menub1, tearoff=0)
@@ -129,6 +130,17 @@ class Frame(tk.Frame):
             label6 = tk.Label(root6,text='%s %s' % (x, w),font=16)
             label6.pack(fill="x")
         root6.mainloop()
+        
+    def trzh():
+        m = Frame.m
+        txt = m.get()
+        root25 = tk.Tk()
+        root25.title('Result(TextrankZH')
+        for x, w in jieba.analyse.textrank(txt, withWeight=True):
+            print('%s %s' % (x, w))
+            label25 = tk.Label(root25, text='%s %s' % (x, w),font=16)
+            label25.pack(fill="x")
+        root25.mainloop()
         
     def poszh():
         m = Frame.m
