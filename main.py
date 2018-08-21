@@ -255,7 +255,7 @@ class Frame(tk.Frame):
         txt = m.get()
         root14 = tk.Tk()
         root14.title('Result(preprocess4textrankZH)')
-        result = re.sub(u'[有是会能]', '', txt)
+        result = re.sub(u'[有是会能让]', '', txt)
         print(result)
         pyperclip.copy(result)
         label14 = tk.Label(root14,text=result,font=16)
