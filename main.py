@@ -10,6 +10,7 @@ from __future__ import unicode_literals
 import tkinter.filedialog as tkfd
 import sys
 sys.path.append("../")
+import re
 
 import pyperclip
 
@@ -92,6 +93,9 @@ class Frame(tk.Frame):
         menuf4.add_command(label=u"enco2Unicord", command=Frame.zaw2uni, underline=5, accelerator = 'Ctrl-U')
         menuf4.add_command(label=u"enco2Zawgyi", command=Frame.uni2zaw, underline=5, accelerator = 'Ctrl-Z')
 
+        menuf6 = tk.Menu(menub1, tearoff=0)
+        menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
+        menuf6.add_command(label=u"DeleteDigit", command=Frame.dd, underline=5, accelerator = 'Ctrl-D')
         entry = tk.Entry(root,font=("",14),justify="left", textvariable=m) #entry textbox
         entry.pack(fill="x")
         root.mainloop()
@@ -372,6 +376,17 @@ class Frame(tk.Frame):
         f = open(fn, 'a')
         model.save(fn)
         f.close()
+
+    def dd():
+        m = Frame.m
+        txt = m.get()
+        root24 = tk.Tk()
+        root24.title('Result(DeleteDigit)')
+        result = re.sub('[0-9.,]', '', txt)
+        print(result)
+        pyperclip.copy(result)
+        label24 = tk.Label(root24,text=result,font=16)
+        label24.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
