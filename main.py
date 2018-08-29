@@ -97,6 +97,7 @@ class Frame(tk.Frame):
         menuf6 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
         menuf6.add_command(label=u"deleteDigit", command=Frame.dd, underline=5, accelerator = 'Ctrl-D')
+        menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
         menuf6.add_command(label=u"deleteSpace", command=Frame.ds, underline=5, accelerator = 'Ctrl-S')
         menuf6.add_command(label=u"Paragraphs", command=Frame.para, underline=5, accelerator = 'Ctrl-P')
         entry = tk.Entry(root,font=("",14),justify="left", textvariable=m) #entry textbox
@@ -419,6 +420,17 @@ class Frame(tk.Frame):
         root24 = tk.Tk()
         root24.title('Result(Paragraphs)')
         result = re.sub('[：；，。:;,.]', '\n', txt)
+        print(result)
+        pyperclip.copy(result)
+        label24 = tk.Label(root24,text=result,font=16)
+        label24.pack(fill="x")
+        
+    def db():
+        m = Frame.m
+        txt = m.get()
+        root24 = tk.Tk()
+        root24.title('Result(DeleteBreak)')
+        result = re.sub('\n', '', txt)
         print(result)
         pyperclip.copy(result)
         label24 = tk.Label(root24,text=result,font=16)
