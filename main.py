@@ -37,6 +37,13 @@ import collections
 
 from gensim.models import word2vec
 
+from isanlp.pipeline_common import PipelineCommon
+from isanlp.ru.processor_tokenizer_ru import ProcessorTokenizerRu
+from isanlp.processor_sentence_splitter import ProcessorSentenceSplitter
+from isanlp.ru.processor_mystem import ProcessorMystem
+
+import cyrtranslit
+
 class Frame(tk.Frame):
     root = tk.Tk()
     m = tk.StringVar()
@@ -94,12 +101,20 @@ class Frame(tk.Frame):
         menuf4.add_command(label=u"enco2Unicord", command=Frame.zaw2uni, underline=5, accelerator = 'Ctrl-U')
         menuf4.add_command(label=u"enco2Zawgyi", command=Frame.uni2zaw, underline=5, accelerator = 'Ctrl-Z')
 
+        menuf7 = tk.Menu(menub1, tearoff=0)
+        menub1.add_cascade(label=u"NLP(RU)", menu=menuf7,  underline=5)
+        menuf7.add_command(label=u"Segment&pos", command=Frame.rs, underline=5, accelerator = 'Ctrl-S')
+        menuf7.add_command(label=u"cyrillic2Latin", command=Frame.c2l, underline=5, accelerator = 'Ctrl-L')
+        menuf7.add_command(label=u"latin2Cyrillic", command=Frame.l2c, underline=5, accelerator = 'Ctrl-C')
+
+
         menuf6 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
         menuf6.add_command(label=u"deleteDigit", command=Frame.dd, underline=5, accelerator = 'Ctrl-D')
         menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
         menuf6.add_command(label=u"deleteSpace", command=Frame.ds, underline=5, accelerator = 'Ctrl-S')
         menuf6.add_command(label=u"Paragraphs", command=Frame.para, underline=5, accelerator = 'Ctrl-P')
+
         entry = tk.Entry(root,font=("",14),justify="left", textvariable=m) #entry textbox
         entry.pack(fill="x")
         root.mainloop()
@@ -406,36 +421,73 @@ class Frame(tk.Frame):
     def ds():
         m = Frame.m
         txt = m.get()
-        root24 = tk.Tk()
-        root24.title('Result(DeleteSpace)')
+        root25 = tk.Tk()
+        root25.title('Result(DeleteSpace)')
         result = re.sub(' ', '', txt)
         print(result)
         pyperclip.copy(result)
-        label24 = tk.Label(root24,text=result,font=16)
-        label24.pack(fill="x")
+        label25 = tk.Label(root25,text=result,font=16)
+        label25.pack(fill="x")
         
     def para():
         m = Frame.m
         txt = m.get()
-        root24 = tk.Tk()
-        root24.title('Result(Paragraphs)')
+        root26 = tk.Tk()
+        root26.title('Result(Paragraphs)')
         result = re.sub('[：；，。:;,.]', '\n', txt)
         print(result)
         pyperclip.copy(result)
-        label24 = tk.Label(root24,text=result,font=16)
-        label24.pack(fill="x")
+        label26 = tk.Label(root26,text=result,font=16)
+        label26.pack(fill="x")
         
     def db():
         m = Frame.m
         txt = m.get()
-        root24 = tk.Tk()
-        root24.title('Result(DeleteBreak)')
+        root27 = tk.Tk()
+        root27.title('Result(DeleteBreak)')
         result = re.sub('\n', '', txt)
         print(result)
         pyperclip.copy(result)
-        label24 = tk.Label(root24,text=result,font=16)
-        label24.pack(fill="x")
+        label27 = tk.Label(root27,text=result,font=16)
+        label27.pack(fill="x")
 
+    def rs():
+        m = Frame.m
+        txt = m.get()
+        ppl = PipelineCommon([(ProcessorTokenizerRu(), 
+                               ['text'], 
+                               {0 : 'tokens'}),
+                            (ProcessorSentenceSplitter(), 
+                                ['tokens'], 
+                                {0 : 'sentences'}),
+                             (ProcessorMystem(), 
+                              ['tokens', 'sentences'], 
+                              {'lemma' : 'lemma', 
+                               'postag' : 'postag'})])
+        result = ppl(txt)
+        print(result)      
+
+    def l2c():
+        m = Frame.m
+        txt = m.get()
+        root28 = tk.Tk()
+        root28.title('Result(Latin2Cyrillic)')
+        result = cyrtranslit.to_cyrillic(txt, 'ru')
+        print(result)
+        pyperclip.copy(result)
+        label28 = tk.Label(root28,text=result,font=16)
+        label28.pack(fill="x")
+        
+    def c2l():
+        m = Frame.m
+        txt = m.get()
+        root29 = tk.Tk()
+        root29.title('Result(Cyrillic2Latin)')
+        result = cyrtranslit.to_latin(txt, 'ru')
+        print(result)
+        pyperclip.copy(result)
+        label29 = tk.Label(root29,text=result,font=16)
+        label29.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
