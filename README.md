@@ -20,6 +20,8 @@ v0.05: Added Japanese, and Gensim word2vec module. 5 languages in total.
 
 v0.06: Added Text processing feature to delete numerals(0-9.,), and Chinese textrank
 
+v0.07: Added Russian. 6 languages in total.
+
 # Requirement
 /gensim
 
@@ -58,6 +60,18 @@ Burmese
 
 
 /python-myanmar
+
+
+Russian
+
+
+/pymystem3
+
+
+/isanlp (dependencies: grpcio)
+
+
+/cyrtranslit
 
 
 etc.
