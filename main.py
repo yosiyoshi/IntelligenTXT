@@ -44,6 +44,8 @@ from isanlp.ru.processor_mystem import ProcessorMystem
 
 import cyrtranslit
 
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+
 class Frame(tk.Frame):
     root = tk.Tk()
     m = tk.StringVar()
@@ -73,23 +75,28 @@ class Frame(tk.Frame):
         menuf1.add_command(label=u"preprocess4textrank", command=Frame.process4txtrkzh, underline=5)
     
         menuf2 = tk.Menu(menub1, tearoff=0)
-        menub1.add_cascade(label=u"NLP(TH)", menu=menuf2,  underline=5)
+        menub1.add_cascade(label=u"NLP(TH)", menu=menuf2, underline=5)
         menuf2.add_command(label=u"Segment", command=Frame.segth, underline=5, accelerator = 'Ctrl-S')
         menuf2.add_command(label=u"DeepCut", command=Frame.dsegth, underline=5, accelerator = 'Ctrl-D')
-#        menuf2.add_command(label=u"Cutkum", command=Frame.ckth, underline=5, accelerator = 'Ctrl-C')
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
         menuf2.add_command(label=u"POS", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
         menuf2.add_command(label=u"sUmmary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-U')
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
-        menuf2.add_command(label=u"speLL", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
+        menuf2.add_command(label=u"speLL(word)", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
+#        menuf2.add_command(label=u"thai2Arab(number)", command=Frame.tn2an, underline=5, accelerator = 'Ctrl-A')
+#        menuf2.add_command(label=u"arab2Thai(number)", command=Frame.an2tn, underline=5, accelerator = 'Ctrl-T')
         
         menuf5 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(JP)", menu=menuf5, underline=5)
         menuf5.add_command(label=u"Segment", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
         menuf5.add_command(label=u"Counter", command=Frame.cntjp, underline=5, accelerator = 'Ctrl-C')
         menuf5.add_command(label=u"POS", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-P')
-    
+        
+        menuf8 = tk.Menu(menub1, tearoff=0)
+        menub1.add_cascade(label=u"NLP(Bahasa)", menu=menuf8, underline=5)
+        menuf8.add_command(label=u"Katadasar", command=Frame.katadsr, underline=5, accelerator = 'Ctrl-K')
+
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
         menuf3.add_command(label=u"Segment", command=Frame.segvt, underline=5, accelerator = 'Ctrl-S')
@@ -114,7 +121,7 @@ class Frame(tk.Frame):
         menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
         menuf6.add_command(label=u"deleteSpace", command=Frame.ds, underline=5, accelerator = 'Ctrl-S')
         menuf6.add_command(label=u"Paragraphs", command=Frame.para, underline=5, accelerator = 'Ctrl-P')
-
+        
         entry = tk.Entry(root,font=("",14),justify="left", textvariable=m) #entry textbox
         entry.pack(fill="x")
         root.mainloop()
@@ -257,16 +264,18 @@ class Frame(tk.Frame):
         label12.pack(fill="x")
         root12.mainloop()
         
-#    def ckth():
-#        m = Frame.m
-#        txt = m.get()
-#        seg = cutkum.tokenize(txt)
-#        print(seg)
-#        root13 = tk.Tk()
-#        root13.title('Result(CutkumTH)')
-#        label13 = tk.Label(root13,text=seg,font=16)
-#        label13.pack(fill="x")
-#        root13.mainloop()
+    def katadsr():
+        m = Frame.m
+        factory = StemmerFactory()
+        stemmer = factory.create_stemmer()
+        txt = m.get()
+        seg = stemmer.stem(txt)
+        print(seg)
+        root13 = tk.Tk()
+        root13.title('Result(KataDasar)')
+        label13 = tk.Label(root13,text=seg,font=16)
+        label13.pack(fill="x")
+        root13.mainloop()
 
     def process4txtrkzh():
         m = Frame.m
@@ -488,6 +497,28 @@ class Frame(tk.Frame):
         pyperclip.copy(result)
         label29 = tk.Label(root29,text=result,font=16)
         label29.pack(fill="x")
+
+#    def tn2an():
+#        m = Frame.m
+#        txt = m.get()
+#        root30 = tk.Tk()
+#        root30.title('Result(ThaiNo2ArabNo)')
+#        result = ptn.numbers.nttn(txt)
+#        print(result)
+#        pyperclip.copy(result)
+#        label30 = tk.Label(root30,text=result,font=16)
+#        label30.pack(fill="x")
+#        
+#    def an2tn():
+#        m = Frame.m
+#        txt = m.get()
+#        root31 = tk.Tk()
+#        root31.title('Result(ArabNo2ThaiNo)')
+#        result = ptn.numbers.ntnt(txt)
+#        print(result)
+#        pyperclip.copy(result)
+#        label31 = tk.Label(root31,text=result,font=16)
+#        label31.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
