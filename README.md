@@ -22,6 +22,8 @@ v0.06: Added Text processing feature to delete numerals(0-9.,), and Chinese text
 
 v0.07: Added Russian. 6 languages in total.
 
+v0.10: Added Bahasa(Indonesian/Malay). 7 languages in total.
+
 # Requirement
 /gensim
 
@@ -73,6 +75,9 @@ Russian
 
 /cyrtranslit
 
+Bahasa
+
+/PySastrawi
 
 etc.
 
