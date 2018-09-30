@@ -87,7 +87,7 @@ class Frame(tk.Frame):
 
         menuf5 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(JP)", menu=menuf5, underline=5)
-        menuf5.add_command(label=u"Segment&pos", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
+        menuf5.add_command(label=u"Segment", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
         menuf5.add_command(label=u"Counter", command=Frame.cntjp, underline=5, accelerator = 'Ctrl-C')
         menuf5.add_command(label=u"P.o.s.", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-P')
         
