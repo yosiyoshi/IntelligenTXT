@@ -71,7 +71,7 @@ class Frame(tk.Frame):
         menuf1.add_command(label=u"Segment", command=Frame.segzh, underline=5, accelerator = 'Ctrl-S')
         menuf1.add_command(label=u"Keywords", command=Frame.kwzh, underline=5, accelerator = 'Ctrl-K')
         menuf1.add_command(label=u"textRank", command=Frame.trzh, underline=5, accelerator = 'Ctrl-R')
-        menuf1.add_command(label=u"POS", command=Frame.poszh, underline=5, accelerator = 'Ctrl-P')
+        menuf1.add_command(label=u"P.o.s.", command=Frame.poszh, underline=5, accelerator = 'Ctrl-P')
         menuf1.add_command(label=u"preprocess4textrank", command=Frame.process4txtrkzh, underline=5)
     
         menuf2 = tk.Menu(menub1, tearoff=0)
@@ -80,18 +80,16 @@ class Frame(tk.Frame):
         menuf2.add_command(label=u"DeepCut", command=Frame.dsegth, underline=5, accelerator = 'Ctrl-D')
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
-        menuf2.add_command(label=u"POS", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
+        menuf2.add_command(label=u"P.o.s.", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
         menuf2.add_command(label=u"sUmmary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-U')
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
         menuf2.add_command(label=u"speLL(word)", command=Frame.splth, underline=5, accelerator = 'Ctrl-L')
-#        menuf2.add_command(label=u"thai2Arab(number)", command=Frame.tn2an, underline=5, accelerator = 'Ctrl-A')
-#        menuf2.add_command(label=u"arab2Thai(number)", command=Frame.an2tn, underline=5, accelerator = 'Ctrl-T')
-        
+
         menuf5 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(JP)", menu=menuf5, underline=5)
-        menuf5.add_command(label=u"Segment", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
+        menuf5.add_command(label=u"Segment&pos", command=Frame.segjp, underline=5, accelerator = 'Ctrl-S')
         menuf5.add_command(label=u"Counter", command=Frame.cntjp, underline=5, accelerator = 'Ctrl-C')
-        menuf5.add_command(label=u"POS", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-P')
+        menuf5.add_command(label=u"P.o.s.", command=Frame.tokenjp, underline=5, accelerator = 'Ctrl-P')
         
         menuf8 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(Bahasa)", menu=menuf8, underline=5)
@@ -100,7 +98,7 @@ class Frame(tk.Frame):
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
         menuf3.add_command(label=u"Segment", command=Frame.segvt, underline=5, accelerator = 'Ctrl-S')
-        menuf3.add_command(label=u"POS", command=Frame.posvt, underline=5, accelerator = 'Ctrl-P')
+        menuf3.add_command(label=u"P.o.s.", command=Frame.posvt, underline=5, accelerator = 'Ctrl-P')
 
         menuf4 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(MN)", menu=menuf4,  underline=5)
@@ -113,7 +111,6 @@ class Frame(tk.Frame):
         menuf7.add_command(label=u"Segment&pos", command=Frame.rs, underline=5, accelerator = 'Ctrl-S')
         menuf7.add_command(label=u"cyrillic2Latin", command=Frame.c2l, underline=5, accelerator = 'Ctrl-L')
         menuf7.add_command(label=u"latin2Cyrillic", command=Frame.l2c, underline=5, accelerator = 'Ctrl-C')
-
 
         menuf6 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
@@ -497,28 +494,6 @@ class Frame(tk.Frame):
         pyperclip.copy(result)
         label29 = tk.Label(root29,text=result,font=16)
         label29.pack(fill="x")
-
-#    def tn2an():
-#        m = Frame.m
-#        txt = m.get()
-#        root30 = tk.Tk()
-#        root30.title('Result(ThaiNo2ArabNo)')
-#        result = ptn.numbers.nttn(txt)
-#        print(result)
-#        pyperclip.copy(result)
-#        label30 = tk.Label(root30,text=result,font=16)
-#        label30.pack(fill="x")
-#        
-#    def an2tn():
-#        m = Frame.m
-#        txt = m.get()
-#        root31 = tk.Tk()
-#        root31.title('Result(ArabNo2ThaiNo)')
-#        result = ptn.numbers.ntnt(txt)
-#        print(result)
-#        pyperclip.copy(result)
-#        label31 = tk.Label(root31,text=result,font=16)
-#        label31.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
