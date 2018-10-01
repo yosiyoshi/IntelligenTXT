@@ -206,7 +206,7 @@ class Frame(tk.Frame):
         txt = m.get()
         seg = tl.pos_tag(txt)
         print(seg)
-#        pyperclip.copy(" ".join(seg))
+        pyperclip.copy(" ".join(seg))
         root8 = tk.Tk()
         root8.title('Result(POS-TH)')
         label8 = tk.Label(root8,text=seg,font=16)
