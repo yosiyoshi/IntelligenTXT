@@ -8,6 +8,7 @@ Created on Fri May 18 17:39:44 2018
 from __future__ import unicode_literals
 
 import tkinter.filedialog as tkfd
+from tkinter import scrolledtext
 import sys
 sys.path.append("../")
 import re
@@ -48,7 +49,7 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 class Frame(tk.Frame):
     root = tk.Tk()
-    m = tk.Text(root,font=("",14))
+    m = scrolledtext.ScrolledText(root,font=("",14),height=2000,width=2000)
     
     def main():
         root = Frame.root
@@ -60,7 +61,10 @@ class Frame(tk.Frame):
         menuf1 = tk.Menu(menub1, tearoff=0)
         menuf0 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"File", menu=menuf0,  underline=5)
+        menuf0.add_command(label=u"New", command=Frame.new, underline=5, accelerator = 'Ctrl-N')
+        menuf0.add_command(label=u"Open", command=Frame.load, underline=5, accelerator = 'Ctrl-O')
         menuf0.add_command(label=u"Save", command=Frame.save, underline=5, accelerator = 'Ctrl-S')
+        menuf0.add_command(label=u"eXit", command=root.destroy, underline=5, accelerator = 'Ctrl-X')
 
         menuf4 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Gensim", menu=menuf4,  underline=5)
@@ -121,12 +125,26 @@ class Frame(tk.Frame):
         m.pack(fill="x")
         root.mainloop()
 
+    def new():
+        m = Frame.m
+        m.delete('1.0', 'end')
+
     def save():
         fn = tkfd.asksaveasfilename()
         m = Frame.m
         f = open(fn, 'a')
-        f.write(m.get('1.0', 'end -1c'))
+        f.write(m.get('1.0', 'end -1c')+"\n")
         f.close()
+        
+    def load():
+        fn = tkfd.askopenfilename()
+        m = Frame.m
+        f = open(fn, 'r')
+        m.delete('1.0', 'end')
+        for x in f:
+            m.insert('end', x)
+        f.close()
+        m.focus_set()
 
     def segzh():
         m = Frame.m
