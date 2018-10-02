@@ -1,20 +1,20 @@
 --Reference--
 IntelligenTXT
-ƒ¿ ver0.1
+Î± ver0.1
 Author: yosiyoshi
 ---------------
 Please just try first time:
 The first time run the IntelligenTXT, please try to write daily to know the feature of this software.
 [1]There are 10 menus on the upper side of the editor, select "Text processing"->"dateNow".
-[2]The editor will insert the present time on the textbox, and write anything (e.g. "aaa") after the date inserted.
+[2]The editor will insert the present time on the textbox, and write anything (e.g. "æ—¥è¨˜ã‚’æ›¸ãå§‹ã‚ãŸã€‚") after the date inserted.
 [3]Save the edit(work)ing content to any .txt file (e.g. "text.txt").
-[4]Select "New" to delete the text written in textbox, and repeat [1]-[2] with any different text and rewrite on the file you've saved on step[3]("text.txt").
+[4]Select "New" to delete the text written in textbox, and repeat [1]-[2] with any different text(e.g. "ç–²ã‚ŒãŸã€‚") and rewrite on the file you've saved on step[3]("text.txt").
 [5]Open the file saved on step[4], and you'll see the two articles of daily are saved.
 e.g.
 20:55 2018/10/02
-“ú‹L‚ğ‘‚«n‚ß‚½B
+æ—¥è¨˜ã‚’æ›¸ãå§‹ã‚ãŸã€‚
 20:56 2018/10/02
-”æ‚ê‚½B
+ç–²ã‚ŒãŸã€‚
 
 0.Prerequirement
 /Python IDE to execute .py file
