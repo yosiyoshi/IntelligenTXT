@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+﻿#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Fri May 18 17:39:44 2018
@@ -12,10 +12,12 @@ from tkinter import scrolledtext
 import sys
 sys.path.append("../")
 import re
+from datetime import datetime
 
 import pyperclip
 
 import pythainlp as ptn
+from pythainlp.date import now
 
 import jieba
 import jieba.posseg
@@ -54,7 +56,7 @@ class Frame(tk.Frame):
     def main():
         root = Frame.root
         m = Frame.m
-        root.title('Editor')
+        root.title('IntelligenTXT v0.1')
       
         menub1 = tk.Menu(root, tearoff=0)
         root.configure(menu = menub1)
@@ -62,8 +64,8 @@ class Frame(tk.Frame):
         menuf0 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"File", menu=menuf0,  underline=5)
         menuf0.add_command(label=u"New", command=Frame.new, underline=5, accelerator = 'Ctrl-N')
-        menuf0.add_command(label=u"Open", command=Frame.load, underline=5, accelerator = 'Ctrl-O')
-        menuf0.add_command(label=u"Save", command=Frame.save, underline=5, accelerator = 'Ctrl-S')
+        menuf0.add_command(label=u"addOpen", command=Frame.load, underline=5, accelerator = 'Ctrl-O')
+        menuf0.add_command(label=u"addSave", command=Frame.save, underline=5, accelerator = 'Ctrl-S')
         menuf0.add_command(label=u"eXit", command=root.destroy, underline=5, accelerator = 'Ctrl-X')
 
         menuf4 = tk.Menu(menub1, tearoff=0)
@@ -83,6 +85,7 @@ class Frame(tk.Frame):
         menuf2.add_command(label=u"DeepCut", command=Frame.dsegth, underline=5, accelerator = 'Ctrl-D')
         menuf2.add_command(label=u"Romanize", command=Frame.romth, underline=5, accelerator = 'Ctrl-R')
         menuf2.add_command(label=u"Keywords", command=Frame.kwth, underline=5, accelerator = 'Ctrl-K')
+        menuf2.add_command(label=u"dateNow", command=Frame.dateth, underline=5, accelerator = 'Ctrl-N')
         menuf2.add_command(label=u"P.o.s.", command=Frame.posth, underline=5, accelerator = 'Ctrl-P')
         menuf2.add_command(label=u"sUmmary", command=Frame.sumth, underline=5, accelerator = 'Ctrl-U')
         menuf2.add_command(label=u"sentiMent", command=Frame.senth, underline=5, accelerator = 'Ctrl-M')
@@ -96,7 +99,7 @@ class Frame(tk.Frame):
         
         menuf8 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(Bahasa)", menu=menuf8, underline=5)
-        menuf8.add_command(label=u"Katadasar", command=Frame.katadsr, underline=5, accelerator = 'Ctrl-K')
+        menuf8.add_command(label=u"Stem", command=Frame.katadsr, underline=5, accelerator = 'Ctrl-S')
 
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
@@ -117,6 +120,7 @@ class Frame(tk.Frame):
 
         menuf6 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
+        menuf6.add_command(label=u"dateNow", command=Frame.date, underline=5, accelerator = 'Ctrl-N')
         menuf6.add_command(label=u"deleteDigit", command=Frame.dd, underline=5, accelerator = 'Ctrl-D')
         menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
         menuf6.add_command(label=u"deleteSpace", command=Frame.ds, underline=5, accelerator = 'Ctrl-S')
@@ -135,16 +139,24 @@ class Frame(tk.Frame):
         f = open(fn, 'a')
         f.write(m.get('1.0', 'end -1c')+"\n")
         f.close()
-        
+
     def load():
         fn = tkfd.askopenfilename()
         m = Frame.m
         f = open(fn, 'r')
-        m.delete('1.0', 'end')
+#        m.insert('end', '\n')
         for x in f:
             m.insert('end', x)
         f.close()
         m.focus_set()
+    
+    def date():
+        m = Frame.m
+        m.insert('end', datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+
+    def dateth():
+        m = Frame.m
+        m.insert('end', now())
 
     def segzh():
         m = Frame.m
