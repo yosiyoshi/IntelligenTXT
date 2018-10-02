@@ -1,4 +1,4 @@
-﻿#! /usr/bin/env python3
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Fri May 18 17:39:44 2018
@@ -234,7 +234,7 @@ class Frame(tk.Frame):
         txt = m.get('1.0', 'end -1c')
         seg = tl.pos_tag(txt)
         print(seg)
-#        pyperclip.copy(" ".join(seg))
+        pyperclip.copy(" ".join(seg))
         root8 = tk.Tk()
         root8.title('Result(POS-TH)')
         label8 = tk.Label(root8,text=seg,font=16)
@@ -258,7 +258,7 @@ class Frame(tk.Frame):
         txt = m.get('1.0', 'end -1c')
         seg = ViPosTagger.postagging(ViTokenizer.tokenize(txt))
         print(seg)
-#        pyperclip.copy(" ".join(seg))
+        pyperclip.copy(" ".join(seg))
         root10 = tk.Tk()
         label0 = tk.Label(root10,text=seg,font=16)
         label0.pack(fill="x")
