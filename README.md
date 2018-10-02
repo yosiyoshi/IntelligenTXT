@@ -5,10 +5,10 @@ Simplest but an intelligent text editor with NLP functions.
 # How to Use
 
 
-1.Install all requirement
+1.Install all requirement written in "readme.txt" on this repository.
 
 
-2.Just prompt "python main.py"
+2.Just prompt "python main.py" or "python main_mini.py"
 
 
 # Languages
@@ -21,6 +21,8 @@ v0.05: Added Japanese, and Gensim word2vec module. 5 languages in total.
 v0.06: Added Text processing feature to delete numerals(0-9.,), and Chinese textrank
 
 v0.07: Added Russian. 6 languages in total.
+
+v0.09: Added basic functions as a text editor like "Notepad".
 
 v0.10: Added Bahasa(Indonesian/Malay). 7 languages in total.
 
