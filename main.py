@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+﻿#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Fri May 18 17:39:44 2018
@@ -136,14 +136,14 @@ class Frame(tk.Frame):
     def save():
         fn = tkfd.asksaveasfilename()
         m = Frame.m
-        f = open(fn, 'a')
+        f = open(fn, 'a', encoding="utf-8_sig")
         f.write(m.get('1.0', 'end -1c')+"\n")
         f.close()
 
     def load():
         fn = tkfd.askopenfilename()
         m = Frame.m
-        f = open(fn, 'r')
+        f = open(fn, 'r', encoding="utf-8_sig")
 #        m.insert('end', '\n')
         for x in f:
             m.insert('end', x)
