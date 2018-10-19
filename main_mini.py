@@ -126,6 +126,7 @@ class Frame(tk.Frame):
         menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
         menuf6.add_command(label=u"deleteSpace", command=Frame.ds, underline=5, accelerator = 'Ctrl-S')
         menuf6.add_command(label=u"Paragraphs", command=Frame.para, underline=5, accelerator = 'Ctrl-P')
+        menuf6.add_command(label=u"Language?", command=Frame.langety, underline=5, accelerator = 'Ctrl-L')
 
         entry = Frame.entry
         entry.pack(fill="x")
@@ -438,7 +439,7 @@ class Frame(tk.Frame):
                           hs=1,
                           negative=0)
         fn = tkfd.asksaveasfilename()
-        f = open(fn, 'a')
+        f = open(fn, 'a', encoding="utf-8_sig")
         model.save(fn)
         f.close()
 
@@ -523,6 +524,63 @@ class Frame(tk.Frame):
         pyperclip.copy(result)
         label29 = tk.Label(root29,text=result,font=16)
         label29.pack(fill="x")
+
+    def langety():
+        txt="traum"
+        m = Frame.m
+        txt = m.get('1.0', 'end -1c')
+        root30 = tk.Tk()
+        root30.title('Result(LanguageDetection)')
+        h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        h[0]=txt.count("oo")
+        h[1]=txt.count("y")
+        h[2]=txt.count("oe")
+        h[3]=txt.count("oi")
+        h[4]=txt.count("ie")
+        h[5]=txt.count("ee")
+        h[6]=txt.count("ou")
+        h[7]=txt.count("uu")
+        h[8]=txt.count("ei")
+        h[9]=txt.count("eu")
+        h[10]=txt.count("ai")
+        h[11]=txt.count("au")
+        h[12]=txt.count("é")
+        h[13]=txt.count("è")
+        h[14]=txt.count("ua")
+        h[15]=txt.count("à")
+        h[16]=txt.count("â")
+        h[17]=txt.count("aa")
+        h[18]=txt.count("oa")
+        h[19]=txt.count("ea")
+        h[20]=txt.count("ä")
+        message= "Input text:", txt, "\n[oo,y,oe,oi,ie,ee,ou,uu,ei,eu,ai,au,é,è,ua,à,â,aa,oa,ea,ä] existing in the text:\n", h, "\nRecognized as:\n"
+        if max(h)==0:
+            result="None"
+        elif max(h)==h[1] or max(h)==h[18] or max(h)==h[19]:
+            result="English?"
+        elif max(h)==h[2]:
+            result="Dutch or Old Indonesian?"
+        elif max(h)==h[3] or max(h)==h[6] or max(h)==h[12] or max(h)==h[13] or max(h)==h[14] or max(h)==h[15] or max(h)==h[16]:
+            result="French?"
+        elif max(h)==h[4]:
+            result="French or German?"
+        elif max(h)==h[5] or max(h)==h[0]:
+            result="English or Dutch?"
+        elif max(h)==h[7]:
+            result="Dutch?"
+        elif max(h)==h[8] or max(h)==h[20]:
+            result="German?"
+        elif max(h)==h[10]:
+            result="English or French?"
+        elif max(h)==h[11] or max(h)==h[9]:
+            result="English, French or German?"
+        elif max(h)==h[17]:
+            result="German or Dutch?"
+        result2=message,result
+        print(result2)
+        pyperclip.copy(result)
+        label30 = tk.Label(root30,text=result,font=16)
+        label30.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
