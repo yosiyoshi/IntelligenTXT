@@ -526,12 +526,11 @@ class Frame(tk.Frame):
         label29.pack(fill="x")
 
     def langety():
-        txt="traum"
         m = Frame.m
         txt = m.get('1.0', 'end -1c')
         root30 = tk.Tk()
         root30.title('Result(LanguageDetection)')
-        h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         h[0]=txt.count("oo")
         h[1]=txt.count("y")
         h[2]=txt.count("oe")
@@ -553,29 +552,32 @@ class Frame(tk.Frame):
         h[18]=txt.count("oa")
         h[19]=txt.count("ea")
         h[20]=txt.count("ä")
-        message= "Input text:", txt, "\n[oo,y,oe,oi,ie,ee,ou,uu,ei,eu,ai,au,é,è,ua,à,â,aa,oa,ea,ä] existing in the text:\n", h, "\nRecognized as:\n"
+        h[21]=txt.count("ö")
+        h[22]=txt.count("ü")
+        h[23]=txt.count("ue")
+        h[24]=txt.count("ij")
+        message= "Input text:", txt, "\n[oo,y,oe,oi,ie,ee,ou,uu,ei,eu,ai,au,é,è,ua,à,â,aa,oa,ea,ä,ö,ü,ue,ij] existing in the text:\n", h, "\nRecognized as:\n"
         if max(h)==0:
             result="None"
         elif max(h)==h[1] or max(h)==h[18] or max(h)==h[19]:
             result="English?"
         elif max(h)==h[2]:
             result="Dutch or Old Indonesian?"
-        elif max(h)==h[3] or max(h)==h[6] or max(h)==h[12] or max(h)==h[13] or max(h)==h[14] or max(h)==h[15] or max(h)==h[16]:
+        elif max(h)==h[3] or max(h)==h[6] or max(h)==h[12] or max(h)==h[13] or max(h)==h[14] or max(h)==h[15] or max(h)==h[16] or max(h)==h[23]:
             result="French?"
         elif max(h)==h[4]:
             result="French or German?"
         elif max(h)==h[5] or max(h)==h[0]:
             result="English or Dutch?"
-        elif max(h)==h[7]:
+        elif max(h)==h[7] or max(h)==h[17] or max(h)==h[24]:
             result="Dutch?"
-        elif max(h)==h[8] or max(h)==h[20]:
+        elif max(h)==h[8] or max(h)==h[20] or max(h)==h[21] or max(h)==h[22]:
             result="German?"
         elif max(h)==h[10]:
             result="English or French?"
         elif max(h)==h[11] or max(h)==h[9]:
             result="English, French or German?"
-        elif max(h)==h[17]:
-            result="German or Dutch?"
+
         result2=message,result
         print(result2)
         pyperclip.copy(result)
