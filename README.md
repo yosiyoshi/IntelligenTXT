@@ -1,3 +1,8 @@
+# Open version of this repository
+Released in AufIntelligenTXT(AITXT), the repository is aimed to develop a practical software application with functions in this repository for Windows, MacOS, Linux, iOS, Android etc. The author of this repository is Yosiyoshi, and the copyright is written on the bottom of this document.
+
+https://github.com/yosiyoshi/AufIntelligenTXT-AITXT-
+
 # IntelligenTXT
 Simplest but an intelligent text editor with NLP functions.
 
@@ -26,7 +31,7 @@ v0.09: Added basic functions as a text editor like "Notepad".
 
 v0.10: Added Bahasa(Indonesian/Malay). 7 languages in total.
 
-# Requirement
+# Requirement API Used
 /gensim
 
 
@@ -91,3 +96,8 @@ etc.
 
 
 /tkinter
+
+
+# Copyright
+Yosiyoshi is a GitHub user.
+Copyright © 2018 Yosiyoshi All Rights Reserved.
