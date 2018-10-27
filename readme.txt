@@ -64,3 +64,6 @@ The key of shortcut is showned as a capital letter existing within the name of f
 /Efficient text processing
 "Text processing" menu provide you with simple but convenient tools:
 Insert present date("dataNow" tool), delete numbers and numerical symbols("deleteDigit"), delete breaks("deleteBreaks") and space("deleteSpace").
+
+2.Copyright
+Yosiyoshi is a GitHub user. Copyright © 2018 Yosiyoshi All Rights Reserved.
