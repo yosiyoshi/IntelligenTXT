@@ -1,3 +1,5 @@
+The author of this repository is Yosiyoshi, and the copyright is written on the bottom of this document
+
 This project is consist of 4 contents.
 
 # (1)IntelligenTXT: Main GUI project
@@ -17,7 +19,7 @@ Merged with YoshiNLTK: https://github.com/yosiyoshi/YoshiNLTK
 Usage: put ynltk.py on any directory -> "import ynltk"
 
 # (4)AufIntelligenTXT: Open version of this repository
-Released in AufIntelligenTXT(AITXT), the repository is aimed to develop a practical software application with functions in this repository for Windows, MacOS, Linux, iOS, Android etc. The author of this repository is Yosiyoshi, and the copyright is written on the bottom of this document: https://github.com/yosiyoshi/AufIntelligenTXT-AITXT-
+Released in AufIntelligenTXT(AITXT), the repository is aimed to develop a practical software application with functions in this repository for Windows, MacOS, Linux, iOS, Android etc.: https://github.com/yosiyoshi/AufIntelligenTXT-AITXT-
 
 # How to Use
 
