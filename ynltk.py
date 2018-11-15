@@ -11,9 +11,10 @@ from nltk import ChartParser
 import nltk.parse
 from nltk.tokenize import wordpunct_tokenize
 from nltk.stem import SnowballStemmer
+import re
 
-class Langvowel():
-    def langvowel(self,txt):
+class Langvowel:
+    def langvowel(self, txt):
         h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         h[0]=txt.count("oo")
         h[1]=txt.count("y")
@@ -62,8 +63,37 @@ class Langvowel():
             result="English, French or German?"
         return result
 
+class Viet2Pinyin():
+    def viet2pinyin(self, txt):
+        a = re.sub("tr","zh", txt)
+        b = re.sub("quy","(q/j)u", a)
+        c = re.sub("q","g", b)
+        d = re.sub("[yỷý]","i", c)
+        e = re.sub("vì", "wei", d)
+        f = re.sub("c", "g", e)
+        g = re.sub("ư", "i", f)
+        h = re.sub("vi", "yu", g)
+        i = re.sub("ngh", "y", h)
+        j = re.sub("nhậ", "ri", i)
+        k = re.sub("th", "(ch/zh)", j)
+        l = re.sub("nhâ", "re", k)
+        m = re.sub("[áàảã]", "e", l)
+        n = re.sub("[êể]", "a", m)
+        o = re.sub("â", "i", n)
+        p = re.sub("nh", "ng", o)
+        q = re.sub("d", "m", p)
+        r = re.sub("đ", "d", q)
+        s = re.sub("[òồo]", "u", r)
+        t = re.sub("am", "an", s)
+        u = re.sub("x", "sh", t)
+        v = re.sub("ĩa", "i", u)
+        w = re.sub("ậ", "i", v)
+        x = re.sub("gh", "ch", w)
+        y = re.sub("t", "(s/z)", x)
+        return y
+
 class ThaiForeignEtymolgy():
-    def Foreign2Thai(self, corpus, mode = "sk"):
+    def foreign2Thai(self, corpus, mode = "sk"):
         if mode == "sk":
             sk1 = corpus.replace("ara", "on")
             sk2 = sk1.replace("bh", "ph")
@@ -159,6 +189,52 @@ class OmnibusStem:
         s = difflib.SequenceMatcher(None, l1, l2).ratio()
         if skip == 0:
             print(corpus1, ",", corpus2, "=>", l1, ",", l2, ": simlilarity =", s)
+            if result >= 1:
+                if s >= 0.5:
+                    result = "high possibility of co-etymology"
+                else:
+                    result = "low possibility of co-etymology"
+                return result
+            else:
+                return
+        else:
+            return
+
+    def compTwoStems(self, corpus, skip=0, result=1):
+        l = corpus.split(" ")
+        l1 = ''.join(l[0])
+        l2 = ''.join(l[1])
+        corpus = l1 + "," + l2
+        conju0 = corpus.replace("ri", "ni")
+        conju0a = conju0.replace("ru", "ni")
+        conju0b = conju0a.replace("zh", "ts")
+        conju0c = conju0b.replace("q", "g")
+        conju1 = conju0c.replace("w", "kw")
+        conju2 = conju1.replace("th", "t")
+        conju3 = conju2.replace("d", "t")
+        conju4 = conju3.replace("hk", "k")
+        conju5 =conju4.replace("c", "k")
+        conju6 = conju5.replace("f", "p")
+        conju7 = conju6.replace("y", "j")
+        conju8 = conju7.replace("p", "p")
+        conju9 = conju8.replace("i", "e")
+        conju10 = conju9.replace("n", "m")
+        conju11 = conju10.replace("u", "e")
+        conju12 = conju11.replace("b", "b")
+        conju13 = conju12.replace("l", "l")
+        conju14 = conju13.replace("h", "k")
+        conju15 = conju14.replace("j", "g")
+        conju16 = conju15.replace("kwh", "kw")
+        conju17 = conju16.replace("z", "dy")
+        conju18 = conju17.replace("v", "w")
+        conju19 = conju18.replace("x", "k")
+        final = conju19.replace("oe", "ew")
+        resl = final.split(",")
+        resl1 = ''.join(resl[0])
+        resl2 = ''.join(resl[1])
+        s = difflib.SequenceMatcher(None, l1, l2).ratio()
+        if skip == 0:
+            print(l1, ",", l2, "=>", resl1, ",", resl2, ": simlilarity =", s)
             if result >= 1:
                 if s >= 0.5:
                     result = "high possibility of co-etymology"
