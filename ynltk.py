@@ -65,11 +65,11 @@ class Langvowel:
 
 class Viet2Pinyin():
     def viet2pinyin(self, txt):
-        a = re.sub("tr","(zh/ch)", txt)
-        b = re.sub("quy","(q/j)u", a)
-        c = re.sub("q","g", b)
-        d = re.sub("[yỷý]","i", c)
-        e = re.sub("việ", "yue", d)
+        a = re.sub("ch","zh", txt)
+        b = re.sub("q","(g/j/q)", a)
+        c = re.sub("tr","(ch/zh)", b)
+        d = re.sub("[yỷýỳ]","i", c)
+        e = re.sub("vi[ệê]", "yue", d)
         f = re.sub("c", "g", e)
         g = re.sub("ư", "i", f)
         h = re.sub("v", "(w/y)", g)
@@ -77,9 +77,9 @@ class Viet2Pinyin():
         j = re.sub("nhậ", "ri", i)
         k = re.sub("th", "(ch/sh/T)", j)
         l = re.sub("nhâ", "re", k)
-        m = re.sub("[áàã]", "e", l)
-        n = re.sub("[êể]", "a", m)
-        o = re.sub("[âế]", "i", n)
+        m = re.sub("[áàã]", "(a/e)", l)
+        n = re.sub("[êểơờ]", "a", m)
+        o = re.sub("[âếấở]", "i", n)
         p = re.sub("nh", "ng", o)
         q = re.sub("d", "(m/y)", p)
         r = re.sub("đ", "d", q)
@@ -89,9 +89,9 @@ class Viet2Pinyin():
         v = re.sub("ĩa", "i", u)
         w = re.sub("ậ", "i", v)
         x = re.sub("gh", "ch", w)
-        y = re.sub("t", "(s/j/x/z)", x)
-        z = re.sub("k", "j", y)
-        result = re.sub("jh", "k", z)
+        y = re.sub("t", "(j/s/x/z)", x)
+        z = re.sub("kh", "K", y)
+        result = re.sub("k", "(j/q)", z)
         return result
 
 class ThaiForeignEtymolgy():
