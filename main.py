@@ -103,6 +103,7 @@ class Frame(tk.Frame):
 
         menuf3 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"NLP(VT)", menu=menuf3,  underline=5)
+        menuf3.add_command(label=u"Vietnam2pinyin", command=Frame.vnzh, underline=5, accelerator = 'Ctrl-V')
         menuf3.add_command(label=u"Segment", command=Frame.segvt, underline=5, accelerator = 'Ctrl-S')
         menuf3.add_command(label=u"P.o.s.", command=Frame.posvt, underline=5, accelerator = 'Ctrl-P')
 
@@ -120,6 +121,7 @@ class Frame(tk.Frame):
 
         menuf6 = tk.Menu(menub1, tearoff=0)
         menub1.add_cascade(label=u"Text processing", menu=menuf6,  underline=5)
+        menuf6.add_command(label=u"CapitalLower", command=Frame.cptlow, underline=5, accelerator = 'Ctrl-C')
         menuf6.add_command(label=u"dateNow", command=Frame.date, underline=5, accelerator = 'Ctrl-N')
         menuf6.add_command(label=u"deleteDigit", command=Frame.dd, underline=5, accelerator = 'Ctrl-D')
         menuf6.add_command(label=u"deleteBreaks", command=Frame.db, underline=5, accelerator = 'Ctrl-B')
@@ -582,6 +584,53 @@ class Frame(tk.Frame):
         pyperclip.copy(result)
         label30 = tk.Label(root30,text=result,font=16)
         label30.pack(fill="x")
+
+    def vnzh():
+        m = Frame.m
+        txt = m.get('1.0', 'end -1c')
+        root31 = tk.Tk()
+        root31.title('Result(VN2Pinyin)')
+        a = re.sub("tr","zh", txt)
+        b = re.sub("quy","(q/j)u", a)
+        c = re.sub("q","g", b)
+        d = re.sub("[yỷý]","i", c)
+        e = re.sub("vì", "wei", d)
+        f = re.sub("c", "g", e)
+        g = re.sub("ư", "i", f)
+        h = re.sub("vi", "yu", g)
+        i = re.sub("ngh", "y", h)
+        j = re.sub("nhậ", "ri", i)
+        k = re.sub("th", "(ch/zh)", j)
+        l = re.sub("nhâ", "re", k)
+        m = re.sub("[áàảã]", "e", l)
+        n = re.sub("[êể]", "a", m)
+        o = re.sub("â", "i", n)
+        p = re.sub("nh", "ng", o)
+        q = re.sub("d", "m", p)
+        r = re.sub("đ", "d", q)
+        s = re.sub("[òồo]", "u", r)
+        t = re.sub("am", "an", s)
+        u = re.sub("x", "sh", t)
+        v = re.sub("ĩa", "i", u)
+        w = re.sub("ậ", "i", v)
+        x = re.sub("gh", "ch", w)
+        y = re.sub("t", "(s/z)", x)
+
+        pyperclip.copy(y)
+        print(y)
+        label31 = tk.Label(root31,text=y,font=16)
+        label31.pack(fill="x")
+    
+    def cptlow():
+        m = Frame.m
+        txt = m.get('1.0', 'end -1c')
+        root32 = tk.Tk()
+        root32.title('Result(CapitalLower)')
+        result = txt.lower()
+        pyperclip.copy(result)
+        print(result)
+        label32 = tk.Label(root32,text=result,font=16)
+        label32.pack(fill="x")
 
 if __name__ == '__main__':
     f = Frame()
