@@ -588,7 +588,7 @@ class Frame(tk.Frame):
         
     def vnzh():
         m = Frame.m
-        txt = m.get('1.0', 'end -1c')
+        txt = m.get()
         root31 = tk.Tk()
         root31.title('Result(VN2Pinyin)')
         a = re.sub("tr","zh", txt)
