@@ -592,7 +592,7 @@ class Frame(tk.Frame):
         root31.title('Result(VN2Pinyin)')
         a = re.sub("ch","zh", txt)
         b = re.sub("q","(g/j/q)", a)
-        c = re.sub("tr","(ch/zh)", b)
+        c = re.sub("tr","zh", b)
         d = re.sub("[yỷýỳ]","i", c)
         e = re.sub("vi[ệê]", "yue", d)
         f = re.sub("c", "g", e)
