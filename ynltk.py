@@ -69,13 +69,13 @@ class Viet2Pinyin():
         b = re.sub("quy","(q/j)u", a)
         c = re.sub("q","g", b)
         d = re.sub("[yỷý]","i", c)
-        e = re.sub("vì", "wei", d)
+        e = re.sub("việ", "yua", d)
         f = re.sub("c", "g", e)
         g = re.sub("ư", "i", f)
-        h = re.sub("vi", "yu", g)
+        h = re.sub("vi", "wei", g)
         i = re.sub("ngh", "y", h)
         j = re.sub("nhậ", "ri", i)
-        k = re.sub("th", "(ch/zh)", j)
+        k = re.sub("th", "(ch/sh)", j)
         l = re.sub("nhâ", "re", k)
         m = re.sub("[áàảã]", "e", l)
         n = re.sub("[êể]", "a", m)
@@ -90,7 +90,8 @@ class Viet2Pinyin():
         w = re.sub("ậ", "i", v)
         x = re.sub("gh", "ch", w)
         y = re.sub("t", "(s/z)", x)
-        return y
+        z = re.sub("k", "j", y)
+        return z
 
 class ThaiForeignEtymolgy():
     def foreign2Thai(self, corpus, mode = "sk"):
