@@ -588,14 +588,14 @@ class Frame(tk.Frame):
         
     def vnzh():
         m = Frame.m
-        txt = m.get()
+        txt = m.get('1.0', 'end -1c')
         root31 = tk.Tk()
         root31.title('Result(VN2Pinyin)')
         a = re.sub("tr","zh", txt)
         b = re.sub("quy","(q/j)u", a)
         c = re.sub("q","g", b)
         d = re.sub("[yỷý]","i", c)
-        e = re.sub("việ", "yua", d)
+        e = re.sub("việ", "yue", d)
         f = re.sub("c", "g", e)
         g = re.sub("ư", "i", f)
         h = re.sub("vi", "wei", g)
@@ -603,26 +603,27 @@ class Frame(tk.Frame):
         j = re.sub("nhậ", "ri", i)
         k = re.sub("th", "(ch/sh)", j)
         l = re.sub("nhâ", "re", k)
-        m = re.sub("[áàảã]", "e", l)
+        m = re.sub("[áàã]", "e", l)
         n = re.sub("[êể]", "a", m)
-        o = re.sub("â", "i", n)
+        o = re.sub("ế", "i", n)
         p = re.sub("nh", "ng", o)
         q = re.sub("d", "m", p)
         r = re.sub("đ", "d", q)
         s = re.sub("[òồo]", "u", r)
-        t = re.sub("am", "an", s)
+        t = re.sub("ngi", "r", s)
         u = re.sub("x", "sh", t)
         v = re.sub("ĩa", "i", u)
         w = re.sub("ậ", "i", v)
         x = re.sub("gh", "ch", w)
         y = re.sub("t", "(s/z)", x)
         z = re.sub("k", "j", y)
+        result = re.sub("jh", "k", z)
 
-        pyperclip.copy(y)
-        print(z)
-        label31 = tk.Label(root31,text=z,font=16)
+        pyperclip.copy(result)
+        print(result)
+        label31 = tk.Label(root31,text=result,font=16)
         label31.pack(fill="x")
-    
+
     def cptlow():
         m = Frame.m
         txt = m.get()
