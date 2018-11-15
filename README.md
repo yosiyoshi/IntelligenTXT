@@ -45,6 +45,8 @@ v0.09: Added basic functions as a text editor like "Notepad".
 
 v0.10: Added Bahasa(Indonesian/Malay). 7 languages in total.
 
+v0.11: Added Capital alphabet lower and Vietnamese word Pinyinization.
+
 # Requirement API Used
 /gensim
 
