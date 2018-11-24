@@ -41,7 +41,7 @@ class LangDetec(tk.Frame):
         txt1 = re.sub(' ', '', m.get())
         txt2 = re.sub(' ', '', n.get())
         s=OmnibusStem()
-        result = s.compStemmer(txt1,txt2)
+        result = s.compStemmer(txt1.lower(),txt2.lower())
         print(result)
         pyperclip.copy(result)
         root2 = tk.Tk()
