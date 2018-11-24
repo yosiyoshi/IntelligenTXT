@@ -9,6 +9,24 @@ https://github.com/yosiyoshi/IntelligenTXT/blob/master/main.py
 
 https://github.com/yosiyoshi/IntelligenTXT/blob/master/main_mini.py
 
+With two support tools:
+
+## 1. EtymologyCompare(etycompare.py)
+
+Apfel and apple, feu and fuoco, house and huis...
+
+There are lots of co-etymological words to compare with this tool (for linguistics).
+
+Generally speaking, having common etymology is having almost same meaning.
+
+## 2. LanguageDetector(langdetec.py)
+
+English, French, German, Dutch, and Old Indonesian...
+
+As of now, we can detect in what any long sentence written.
+
+This is independence tool, but the same function is included in main.py and main_mini.py
+
 # (2)main.Frame: IntelligenTXT used as a GUI library
 (1)"IntelligenTXT" itself is also working as a GUI library "main.Frame".
 
