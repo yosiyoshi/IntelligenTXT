@@ -161,9 +161,9 @@ class OmnibusStem:
 
     def compStemmer(self, corpus1, corpus2, skip=0, result=1):
         corpus = corpus1 + " " + corpus2
-        conju0 = corpus.replace("ri", "ni")
-        conju1 = conju0.replace("ru", "ni")
-        conju2 = conju1.replace("zh", "ts")
+        conju0 = corpus.replace("b", "p")
+        conju1 = conju0.replace("d", "t")
+        conju2 = conju1.replace("g", "k")
         conju3 = conju2.replace("q", "g")
         conju4 = conju3.replace("w", "kw")
         conju5 = conju4.replace("th", "t")
