@@ -173,7 +173,7 @@ class OmnibusStem:
         conju9 = conju8.replace("f", "p")
         conju10 = conju9.replace("y", "j")
         conju11 = conju10.replace("a", "o")
-        conju12 = conju11.replace("i", "e")
+        conju12 = conju11.replace("i", "ey")
         conju13 = conju12.replace("u", "o")
         conju14 = conju13.replace("gk", "yg")
         conju15 = conju14.replace("j", "y")
