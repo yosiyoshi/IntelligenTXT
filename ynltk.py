@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Created on Sun Oct 28 09:30:55 2018
 
@@ -15,7 +15,7 @@ import re
 
 class Langvowel:
     def langvowel(self, txt):
-        h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        h=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         h[0]=txt.count("oo")
         h[1]=txt.count("y")
         h[2]=txt.count("oe")
@@ -41,9 +41,12 @@ class Langvowel:
         h[22]=txt.count("ü")
         h[23]=txt.count("ue")
         h[24]=txt.count("ij")
+        h[25]=txt.count("aw")
+        h[26]=txt.count("ew")
+        h[27]=txt.count("ow")
         if max(h)==0:
             result="None"
-        elif max(h)==h[1] or max(h)==h[18] or max(h)==h[19]:
+        elif max(h)==h[1] or max(h)==h[18] or max(h)==h[19] or max(h)==h[25] or max(h)==h[26] or max(h)==h[27]:
             result="English?"
         elif max(h)==h[2]:
             result="Dutch or Old Indonesian?"
@@ -161,29 +164,27 @@ class OmnibusStem:
 
     def compStemmer(self, corpus1, corpus2, skip=0, result=1):
         corpus = corpus1 + " " + corpus2
-        conju0 = corpus.replace("p", "b")
-        conju1 = conju0.replace("t", "d")
-        conju2 = conju1.replace("k", "g")
+        conju0 = corpus.replace("b", "p")
+        conju1 = conju0.replace("d", "t")
+        conju2 = conju1.replace("g", "k")
         conju3 = conju2.replace("q", "g")
-        conju4 = conju3.replace("e", "o")
+        conju4 = conju3.replace("w", "kw")
         conju5 = conju4.replace("th", "t")
-        conju6 = conju5.replace("y", "g")
-        conju7 = conju6.replace("h", "k")
+        conju6 = conju5.replace("d", "t")
+        conju7 = conju6.replace("hk", "k")
         conju8 =conju7.replace("c", "k")
         conju9 = conju8.replace("f", "p")
         conju10 = conju9.replace("y", "j")
-        conju11 = conju10.replace("a", "o")
-        conju12 = conju11.replace("i", "ey")
-        conju13 = conju12.replace("u", "o")
-        conju14 = conju13.replace("gk", "yg")
-        conju15 = conju14.replace("j", "y")
-        conju16 = conju15.replace("kw", "hw")
+        conju11 = conju10.replace("i", "e")
+        conju12 = conju11.replace("n", "m")
+        conju13 = conju12.replace("u", "e")
+        conju14 = conju13.replace("h", "k")
+        conju15 = conju14.replace("j", "g")
+        conju16 = conju15.replace("kwh", "kw")
         conju17 = conju16.replace("z", "dy")
         conju18 = conju17.replace("v", "w")
-        conju19 = conju18.replace("kk", "h")
-        conju20 = conju19.replace("oo", "ew")
-        conju21 = conju20.replace("eo", "ew")
-        final = conju21.replace("oe", "ew")
+        conju19 = conju18.replace("x", "k")
+        final = conju19.replace("oe", "ew")
         l = final.split(" ")
         l1 = ''.join(l[0])
         l2 = ''.join(l[1])
@@ -210,7 +211,7 @@ class OmnibusStem:
         conju0a = conju0.replace("ru", "ni")
         conju0b = conju0a.replace("zh", "ts")
         conju0c = conju0b.replace("q", "g")
-        conju1 = conju0c.replace("w", "(k/h)w")
+        conju1 = conju0c.replace("w", "kw")
         conju2 = conju1.replace("th", "t")
         conju3 = conju2.replace("d", "t")
         conju4 = conju3.replace("hk", "k")
@@ -219,7 +220,7 @@ class OmnibusStem:
         conju7 = conju6.replace("y", "j")
         conju8 = conju7.replace("p", "p")
         conju9 = conju8.replace("i", "e")
-        conju10 = conju9.replace("kk", "k")
+        conju10 = conju9.replace("n", "m")
         conju11 = conju10.replace("u", "e")
         conju12 = conju11.replace("b", "b")
         conju13 = conju12.replace("l", "l")
